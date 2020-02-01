@@ -209,6 +209,8 @@ function startScanner() {
         checkStudent(result.codeResult.code);
         _scannerIsRunning = false;
         Quagga.stop();
+        setTimeout(startScanner, 3000);
+        console.log("hellooooo");
     });
 }
 
