@@ -191,6 +191,7 @@ function startScanner() {
     // });
 
     Quagga.onProcessed(function (result) {
+        drawOnCanvas();
         var drawingCtx = Quagga.canvas.ctx.overlay,
         drawingCanvas = Quagga.canvas.dom.overlay;
 
@@ -223,7 +224,22 @@ function startScanner() {
         setTimeout(startScanner, 3000);
         console.log("hellooooo");
     });
+
+    
 }
+
+function drawOnCanvas() {
+    console.log("drawingOnCanvas");
+
+    var canvas = document.getElementById("barcodeArea");
+    var ctx = canvas.getContext("2d");
+    ctx.canvas.width  = window.innerWidth;
+    var h = document.getElementsByClassName("drawingBuffer")[0].clientHeight;
+    ctx.canvas.height = h;
+    ctx.fillStyle = "#AAAAAA55";
+    ctx.fillRect(200, 300, window.innerWidth - 400, h - 600);
+}
+
 
 function startIn() {
     if (_scannerIsRunning) {

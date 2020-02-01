@@ -25,6 +25,7 @@ button {
     transition: opacity 1s;
     position: absolute;
     top: 0;
+    z-index: 100;
 }
 
 #personProfile {
@@ -48,4 +49,11 @@ canvas.drawing, canvas.drawingBuffer {
     position: absolute;
     left: 0;
     top: 0;
+}
+
+#barcodeArea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
 }
