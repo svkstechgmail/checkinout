@@ -14,7 +14,13 @@ function checkStudent(barNum) {
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear() - 2000;
-    var currentTime = hour + ":" + minutes;
+    var currentTime;
+    if (minutes <= 9) {
+        currentTime = hour + ":0" + minutes;
+    } else {
+        currentTime = hour + ":" + minutes;
+    }
+    
     var currentDate =  month + "/" + day + "/" + year;
     locateStudent(barNum, 0, currentTime, currentDate);
     console.log(currentTime);
@@ -133,8 +139,8 @@ function startScanner() {
             type: "LiveStream",
             target: document.querySelector('#scanner-container'),
             constraints: {
-                width: 480,
-                height: 320,
+                width: window.innerWidth,
+                height: window.innerHeight,
                 facingMode: "environment"
             },
         },
@@ -151,7 +157,7 @@ function startScanner() {
                 "i2of5_reader"
             ],
             debug: {
-                showCanvas: true,
+                showCanvas: false,
                 showPatches: true,
                 showFoundPatches: true,
                 showSkeleton: true,
@@ -177,7 +183,12 @@ function startScanner() {
 
         // Set flag to is running
         _scannerIsRunning = true;
+        
     });
+
+    // Quagga.onProcessed(function (result) {
+    //     Quagga.canvas.ctx.overlay.style.display = "none";
+    // });
 
     Quagga.onProcessed(function (result) {
         var drawingCtx = Quagga.canvas.ctx.overlay,
@@ -214,12 +225,15 @@ function startScanner() {
     });
 }
 
-
-// Start/stop scanner
-document.getElementById("btn").addEventListener("click", function () {
+function startIn() {
     if (_scannerIsRunning) {
         Quagga.stop();
     } else {
         startScanner();
     }
-}, false);
+}
+
+// // Start/stop scanner
+// document.getElementById("btn").addEventListener("click", function () {
+    
+// }, false);

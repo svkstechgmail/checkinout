@@ -9,7 +9,7 @@
     <div id="scanner-container"></div>
     <script src="quagga.min.js"></script>
 
-    <input type="button" id="btn" value="Start/Stop the scanner" />
+    
 
     <div id = "confPage">
       <img src = "Images/PersonIcon.png" id = "personProfile">
@@ -25,7 +25,8 @@
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
 
-    <button id = "call" onclick = "checkStudent(5555)">DO</button>
+    <!-- <button id = "call" onclick = "checkStudent(5555)">DO</button> -->
+    <button id="inButton" onclick = "startIn()">Check In</button>
     <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
     <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
     
