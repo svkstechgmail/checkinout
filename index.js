@@ -43,7 +43,6 @@ function locateStudent(barNum, column, currentTime, currentDate) {
         var ct = 0;
         r.forEach(element => {
             if (element[0] == barNum) {
-                console.log("we gotchu " + element[1]);
                 setTime(barNum, ct, r, column, currentTime, currentDate);
             }
             ct++;
@@ -229,7 +228,6 @@ function startScanner() {
 }
 
 function drawOnCanvas() {
-    console.log("drawingOnCanvas");
 
     var canvas = document.getElementById("barcodeArea");
     var ctx = canvas.getContext("2d");
