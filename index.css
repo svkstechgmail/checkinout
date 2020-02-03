@@ -1,9 +1,9 @@
 * {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
     vertical-align: baseline;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 6vw;
@@ -20,7 +20,7 @@ button {
     background-color: #DDDDDD;
     width: 100vw;
     height: 100vh;
-    display:  none;
+    display: none;
     opacity: 0;
     transition: opacity 1s;
     position: absolute;
@@ -34,11 +34,13 @@ button {
     margin-top: 10vw;
     margin-left: 10vw;
 }
+
 #personName {
     margin-left: 10vw;
     margin-top: 3vw;
     font-size: 7vw;
 }
+
 .personAttribute {
     margin-left: 10vw;
     margin-top: 3vw;

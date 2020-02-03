@@ -6,7 +6,6 @@
 var sheetLetterrs = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ'];
 
 function checkStudent(barNum) {
-
     var date = new Date;
     date.setTime(date.getTime());
     var minutes = date.getMinutes();
@@ -20,8 +19,7 @@ function checkStudent(barNum) {
     } else {
         currentTime = hour + ":" + minutes;
     }
-    
-    var currentDate =  month + "/" + day + "/" + year;
+    var currentDate = month + "/" + day + "/" + year;
     locateStudent(barNum, 0, currentTime, currentDate);
     console.log(currentTime);
     console.log(currentDate);
@@ -29,15 +27,15 @@ function checkStudent(barNum) {
 
 function locateStudent(barNum, column, currentTime, currentDate) {
     var params = {
-      spreadsheetId: '17GHPrictxASzfodpFt8NZosMHElYgan4BcQV3eva9rQ',
-      range: 'Sheet1',
-      majorDimension: 'ROWS',
-      valueRenderOption: 'FORMATTED_VALUE',
-      dateTimeRenderOption: 'FORMATTED_STRING',
+        spreadsheetId: '17GHPrictxASzfodpFt8NZosMHElYgan4BcQV3eva9rQ',
+        range: 'Sheet1',
+        majorDimension: 'ROWS',
+        valueRenderOption: 'FORMATTED_VALUE',
+        dateTimeRenderOption: 'FORMATTED_STRING',
     };
 
     var request = gapi.client.sheets.spreadsheets.values.get(params);
-    request.then(function(response) {
+    request.then(function (response) {
         var r = response.result.values;
 
         var ct = 0;
@@ -48,7 +46,7 @@ function locateStudent(barNum, column, currentTime, currentDate) {
             ct++;
         });
         console.log(response.result);
-    }, function(reason) {
+    }, function (reason) {
         console.error('error: ' + reason.result.error.message);
     });
 }
@@ -62,9 +60,9 @@ function setTime(barNum, volunteerIndex, r, column, currentTime, currentDate) {
     }
     //console.log(dateLocation + (volunteerIndex + 1));
     var params = {
-    spreadsheetId: '17GHPrictxASzfodpFt8NZosMHElYgan4BcQV3eva9rQ',
-    range: dateLocation + (volunteerIndex + 1),
-    valueInputOption: 'USER_ENTERED',
+        spreadsheetId: '17GHPrictxASzfodpFt8NZosMHElYgan4BcQV3eva9rQ',
+        range: dateLocation + (volunteerIndex + 1),
+        valueInputOption: 'USER_ENTERED',
     };
     var valueRangeBody = {
         "range": dateLocation + (volunteerIndex + 1),
@@ -75,23 +73,23 @@ function setTime(barNum, volunteerIndex, r, column, currentTime, currentDate) {
     };
 
     var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
-    request.then(function(response) {
-    console.log('checked in');
-    document.getElementById("personName").innerHTML = r[volunteerIndex][1];
-    document.getElementById("personRoom").innerHTML = "Room: " + r[volunteerIndex][2];
-    document.getElementById("personGrade").innerHTML = "Grade: " + r[volunteerIndex][3];
-    document.getElementById("confPage").style.display = "block";
-    document.getElementById("confPage").style.opacity = 1;
-    
-    setTimeout(
-    function(){
-        document.getElementById("confPage").style.opacity = 0;
-        setTimeout(function(){document.getElementById("confPage").style.display = "none";}, 1000);
-    }, 2000);
+    request.then(function (response) {
+        console.log('checked in');
+        document.getElementById("personName").innerHTML = r[volunteerIndex][1];
+        document.getElementById("personRoom").innerHTML = "Room: " + r[volunteerIndex][2];
+        document.getElementById("personGrade").innerHTML = "Grade: " + r[volunteerIndex][3];
+        document.getElementById("confPage").style.display = "block";
+        document.getElementById("confPage").style.opacity = 1;
 
-    console.log(response.result);
-    }, function(reason) {
-    console.error('error: ' + reason.result.error.message);
+        setTimeout(
+            function () {
+                document.getElementById("confPage").style.opacity = 0;
+                setTimeout(function () { document.getElementById("confPage").style.display = "none"; }, 1000);
+            }, 2000);
+
+        console.log(response.result);
+    }, function (reason) {
+        console.error('error: ' + reason.result.error.message);
     });
 }
 
@@ -101,13 +99,13 @@ function initClient() {
     var SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
 
     gapi.client.init({
-    'apiKey': API_KEY,
-    'clientId': CLIENT_ID,
-    'scope': SCOPE,
-    'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-    }).then(function() {
-    gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
-    updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        'apiKey': API_KEY,
+        'clientId': CLIENT_ID,
+        'scope': SCOPE,
+        'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+    }).then(function () {
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
+        updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
     });
 }
 
@@ -117,7 +115,7 @@ function handleClientLoad() {
 
 function updateSignInStatus(isSignedIn) {
     if (isSignedIn) {
-    //makeApiCall();
+        //makeApiCall();
     }
 }
 
@@ -182,7 +180,7 @@ function startScanner() {
 
         // Set flag to is running
         _scannerIsRunning = true;
-        
+
     });
 
     // Quagga.onProcessed(function (result) {
@@ -192,7 +190,7 @@ function startScanner() {
     Quagga.onProcessed(function (result) {
         drawOnCanvas();
         var drawingCtx = Quagga.canvas.ctx.overlay,
-        drawingCanvas = Quagga.canvas.dom.overlay;
+            drawingCanvas = Quagga.canvas.dom.overlay;
 
         if (result) {
             if (result.boxes) {
@@ -224,14 +222,14 @@ function startScanner() {
         console.log("hellooooo");
     });
 
-    
+
 }
 
 function drawOnCanvas() {
 
     var canvas = document.getElementById("barcodeArea");
     var ctx = canvas.getContext("2d");
-    ctx.canvas.width  = window.innerWidth;
+    ctx.canvas.width = window.innerWidth;
     var h = document.getElementsByClassName("drawingBuffer")[0].clientHeight;
     ctx.canvas.height = h;
     ctx.fillStyle = "#AAAAAA55";
@@ -249,5 +247,5 @@ function startIn() {
 
 // // Start/stop scanner
 // document.getElementById("btn").addEventListener("click", function () {
-    
+
 // }, false);

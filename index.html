@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <link rel = "stylesheet" href = "index.css">
-  </head>
-  <body>
 
-    <div id="scanner-container"></div>
-    <canvas id = "barcodeArea"></canvas>
-    <script src="quagga.min.js"></script>
+<head>
+  <link rel="stylesheet" href="index.css">
+</head>
 
-    
+<body>
 
-    <div id = "confPage">
-      <img src = "Images/PersonIcon.png" id = "personProfile">
-      <h3 id = "personName">Billy Bob Joe</h3>
-      <h4 class = "personAttribute" id = "personRoom">Room: Event Team</h4>
-      <h4 class = "personAttribute" id = "personGrade">Grade: 10</h4>
-    </div>
+  <div id="scanner-container"></div>
+  <canvas id="barcodeArea"></canvas>
+  <script src="quagga.min.js"></script>
 
-    <script src = 'index.js'></script>
-    
-    <script async defer src="https://apis.google.com/js/api.js"
-      onload="this.onload=function(){};handleClientLoad()"
-      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+  <div id="confPage">
+    <img src="Images/PersonIcon.png" id="personProfile">
+    <h3 id="personName">Billy Bob Joe</h3>
+    <h4 class="personAttribute" id="personRoom">Room: Event Team</h4>
+    <h4 class="personAttribute" id="personGrade">Grade: 10</h4>
+  </div>
+
+  <script src='index.js'></script>
+
+  <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+    onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
 
-    <!-- <button id = "call" onclick = "checkStudent(5555)">DO</button> -->
-    <button id="inButton" onclick = "startIn()">Check In</button>
-    <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
-    <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
-    
-  </body>
+  <!-- <button id = "call" onclick = "checkStudent(5555)">DO</button> -->
+  <button id="inButton" onclick="startIn()">Check In</button>
+  <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
+  <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
+
+</body>
+
 </html>

@@ -1,2 +1,2 @@
 # checkinout
-How to check in and check out 
+Time to make a functional check in/out system
