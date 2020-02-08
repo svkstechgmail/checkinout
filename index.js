@@ -129,6 +129,7 @@ function handleSignOutClick(event) {
 
 var _scannerIsRunning = false;
 
+//Basically scans for barcode
 function startScanner() {
     Quagga.init({
         inputStream: {
@@ -221,12 +222,9 @@ function startScanner() {
         setTimeout(startScanner, 3000);
         console.log("hellooooo");
     });
-
-
 }
 
 function drawOnCanvas() {
-
     var canvas = document.getElementById("barcodeArea");
     var ctx = canvas.getContext("2d");
     ctx.canvas.width = window.innerWidth;
@@ -238,6 +236,14 @@ function drawOnCanvas() {
 
 
 function startIn() {
+    if (_scannerIsRunning) {
+        Quagga.stop();
+    } else {
+        startScanner();
+    }
+}
+
+function startOut() {
     if (_scannerIsRunning) {
         Quagga.stop();
     } else {
