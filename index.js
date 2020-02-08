@@ -3,11 +3,10 @@
 //-check out functionality (add html toggle)
 //on promise return info render
 
-
 var sheetLetterrs = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ'];
 
-function checkStudent(barNum) {
-
+//Gets barcode number, processes time&date
+function checkStudent(barNum) { // add boolean as param for checking in or checking out
     var date = new Date;
     date.setTime(date.getTime());
     var minutes = date.getMinutes();
@@ -21,7 +20,6 @@ function checkStudent(barNum) {
     } else {
         currentTime = hour + ":" + minutes;
     }
-
     var currentDate = month + "/" + day + "/" + year;
     locateStudent(barNum, 0, currentTime, currentDate);
     console.log(currentTime);
@@ -133,6 +131,7 @@ function handleSignOutClick(event) {
 
 var _scannerIsRunning = false;
 
+//Scans barcode
 function startScanner() {
     Quagga.init({
         inputStream: {
@@ -216,7 +215,7 @@ function startScanner() {
         }
     });
 
-
+    //Found the barcode
     Quagga.onDetected(function (result) {
         console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
         checkStudent(result.codeResult.code);
@@ -225,8 +224,6 @@ function startScanner() {
         setTimeout(startScanner, 3000);
         console.log("hellooooo");
     });
-
-
 }
 
 function drawOnCanvas() {
@@ -242,7 +239,7 @@ function drawOnCanvas() {
 }
 
 
-function startIn() {
+function scanBarcode() {
     if (_scannerIsRunning) {
         Quagga.stop();
     } else {
