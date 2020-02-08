@@ -6,6 +6,7 @@
 var sheetLetterrs = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ'];
 
 function checkStudent(barNum) {
+
     var date = new Date;
     date.setTime(date.getTime());
     var minutes = date.getMinutes();
@@ -19,6 +20,7 @@ function checkStudent(barNum) {
     } else {
         currentTime = hour + ":" + minutes;
     }
+
     var currentDate = month + "/" + day + "/" + year;
     locateStudent(barNum, 0, currentTime, currentDate);
     console.log(currentTime);
@@ -41,6 +43,7 @@ function locateStudent(barNum, column, currentTime, currentDate) {
         var ct = 0;
         r.forEach(element => {
             if (element[0] == barNum) {
+                console.log("we gotchu " + element[1]);
                 setTime(barNum, ct, r, column, currentTime, currentDate);
             }
             ct++;
@@ -226,6 +229,7 @@ function startScanner() {
 }
 
 function drawOnCanvas() {
+    console.log("drawingOnCanvas");
 
     var canvas = document.getElementById("barcodeArea");
     var ctx = canvas.getContext("2d");
