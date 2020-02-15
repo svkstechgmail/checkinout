@@ -3,10 +3,10 @@
 //-check out functionality (add html toggle)
 //on promise return info render
 
-var sheetLetterrs = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ'];
+var sheetLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ'];
 
-//Gets barcode number, processes time&date
-function checkStudent(barNum) { // add boolean as param for checking in or checking out
+//Gets barcode number, processes time and date
+function checkStudent(barNum, num) { // add boolean as param for checking in or checking out
     var date = new Date;
     date.setTime(date.getTime());
     var minutes = date.getMinutes();
@@ -21,12 +21,12 @@ function checkStudent(barNum) { // add boolean as param for checking in or check
         currentTime = hour + ":" + minutes;
     }
     var currentDate = month + "/" + day + "/" + year;
-    locateStudent(barNum, 0, currentTime, currentDate);
+    locateStudent(barNum, 0, currentTime, currentDate, num);
     console.log(currentTime);
     console.log(currentDate);
 }
 
-function locateStudent(barNum, column, currentTime, currentDate) {
+function locateStudent(barNum, column, currentTime, currentDate, num) {
     var params = {
         spreadsheetId: '17GHPrictxASzfodpFt8NZosMHElYgan4BcQV3eva9rQ',
         range: 'Sheet1',
@@ -39,10 +39,15 @@ function locateStudent(barNum, column, currentTime, currentDate) {
     request.then(function (response) {
         var r = response.result.values;
 
+        //Looks for student
         var ct = 0;
         r.forEach(element => {
             if (element[0] == barNum) {
                 console.log("we gotchu " + element[1]);
+                //Writes to the sheet
+                if (num == 0) {
+                    column++;
+                }
                 setTime(barNum, ct, r, column, currentTime, currentDate);
             }
             ct++;
@@ -53,10 +58,11 @@ function locateStudent(barNum, column, currentTime, currentDate) {
     });
 }
 
+//Writes to the sheet
 function setTime(barNum, volunteerIndex, r, column, currentTime, currentDate) {
     for (var i = 5; i < r[0].length; i++) {
         if (r[0][i] == currentDate) {
-            var dateLocation = sheetLetterrs[i + column];
+            var dateLocation = sheetLetters[i + column];
             break;
         }
     }
@@ -132,7 +138,7 @@ function handleSignOutClick(event) {
 var _scannerIsRunning = false;
 
 //Scans barcode
-function startScanner() {
+function startScanner(num) {
     Quagga.init({
         inputStream: {
             name: "Live",
@@ -218,7 +224,7 @@ function startScanner() {
     //Found the barcode
     Quagga.onDetected(function (result) {
         console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
-        checkStudent(result.codeResult.code);
+        checkStudent(result.codeResult.code, num);
         _scannerIsRunning = false;
         Quagga.stop();
         setTimeout(startScanner, 3000);
@@ -226,9 +232,9 @@ function startScanner() {
     });
 }
 
+//Gray box
 function drawOnCanvas() {
     console.log("drawingOnCanvas");
-
     var canvas = document.getElementById("barcodeArea");
     var ctx = canvas.getContext("2d");
     ctx.canvas.width = window.innerWidth;
@@ -239,11 +245,11 @@ function drawOnCanvas() {
 }
 
 
-function scanBarcode() {
+function scanBarcode(num) {
     if (_scannerIsRunning) {
         Quagga.stop();
     } else {
-        startScanner();
+        startScanner(num);
     }
 }
 
