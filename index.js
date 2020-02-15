@@ -4,6 +4,9 @@
 //on promise return info render
 
 var sheetLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ'];
+//var lbTime = [0, 5400, 7800, 7860];
+//var ubTime = [5400, 7800, 7860, 10000];
+//var newTime = [5400,];
 
 //Gets barcode number, processes time and date
 function checkStudent(barNum, num) { // add boolean as param for checking in or checking out
@@ -15,6 +18,66 @@ function checkStudent(barNum, num) { // add boolean as param for checking in or 
     var month = date.getMonth() + 1;
     var year = date.getFullYear() - 2000;
     var currentTime;
+
+    //CHANGE HOUR AND MINUTES ACCORDINGLY
+    if (num == 1) { //Check in
+        //9:01 ~ 9:15 ==> 9:15
+        if (hour == 9 && (1 <= minutes && minutes <= 15)) {
+            minutes = 15;
+        } else {
+            var newMinute;
+            //To 15
+            if (8 <= minutes && minutes < 23) {
+                newMinute = 15;
+            }
+            //To 30
+            else if (23 <= minutes && minutes < 38) {
+                newMinute = 30;
+            }
+            //To 45
+            else if (38 <= minutes && minutes < 53) {
+                newMinute = 45;
+            }
+            //To 0
+            else if (minutes < 8) {
+                newMinute = 0;
+            }
+            else {
+                newMinute = 0;
+                hour++;
+            }
+            minutes = newMinute;
+        }
+    } else { //Check out
+        //13:01 ~ 13:15 ==> 13:15
+        if (hour == 13 && (1 <= minutes && minutes <= 15)) {
+            minutes = 15;
+        } else {
+            var newMinute;
+            //To 15
+            if (8 <= minutes && minutes < 23) {
+                newMinute = 15;
+            }
+            //To 30
+            else if (23 <= minutes && minutes < 38) {
+                newMinute = 30;
+            }
+            //To 45
+            else if (38 <= minutes && minutes < 53) {
+                newMinute = 45;
+            }
+            //To 0
+            else if (minutes < 8) {
+                newMinute = 0;
+            }
+            else {
+                newMinute = 0;
+                hour++;
+            }
+            minutes = newMinute;
+        }
+    }
+
     if (minutes <= 9) {
         currentTime = hour + ":0" + minutes;
     } else {
