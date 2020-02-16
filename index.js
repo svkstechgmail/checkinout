@@ -19,8 +19,10 @@ function checkStudent(barNum, num) { // add boolean as param for checking in or 
     var currentTime;
 
     //CHANGE HOUR AND MINUTES ACCORDINGLY
-    if (num == 1) { //Check in
+    //Check in
+    if (num == 1) {
         //9:01 ~ 9:15 ==> 9:15
+        //Otherwise to nearest 15
         if (hour == 9 && (1 <= minutes && minutes <= 15)) {
             minutes = 15;
         } else {
@@ -47,17 +49,18 @@ function checkStudent(barNum, num) { // add boolean as param for checking in or 
             }
             minutes = newMinute;
         }
-    } else { //Check out
+    }
+    //Check out
+    else {
         //13:01 ~ 13:15 ==> 13:15
+        //12:25 ~ 12:59 ==> 13:00
+        //Otherwise nearest 15
         if (hour == 13 && (1 <= minutes && minutes <= 15)) {
             minutes = 15;
-        }
-        //12:25 ~ 12:59 ==> 13:00
-        else if (hour == 12 && (25 <= minutes && minutes <= 59)) {
+        } else if (hour == 12 && (25 <= minutes && minutes <= 59)) {
             hour = 13;
             minutes = 0;
-        }
-        else {
+        } else {
             var newMinute;
             //To 15
             if (8 <= minutes && minutes < 23) {
@@ -84,6 +87,7 @@ function checkStudent(barNum, num) { // add boolean as param for checking in or 
     }
     //Done changing hours and minutes
 
+    //Format time
     if (minutes <= 9) {
         currentTime = hour + ":0" + minutes;
     } else {
@@ -113,7 +117,7 @@ function locateStudent(barNum, column, currentTime, currentDate, num) {
         r.forEach(element => {
             if (element[0] == barNum) {
                 console.log("we gotchu " + element[1]);
-                //Writes to the sheet
+                //Write to the sheet
                 if (num == 0) {
                     column++;
                 }
@@ -149,6 +153,7 @@ function setTime(barNum, volunteerIndex, r, column, currentTime, currentDate) {
         "majorDimension": "ROWS"
     };
 
+    //Gets params and value, then update the sheet
     var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
     request.then(function (response) {
         console.log('checked in');
@@ -327,7 +332,7 @@ function scanBarcode(num) {
 
 // }, false);
 
-
+//Order of function calls:
 //startScanner
 //checkStudent
 //locatestudent
