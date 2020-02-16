@@ -1,6 +1,5 @@
-//Last update Feb 8
+//Last update Feb 15
 //TODO
-//-check out functionality (add html toggle)
 //on promise return info render
 
 var sheetLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ'];
@@ -52,7 +51,13 @@ function checkStudent(barNum, num) { // add boolean as param for checking in or 
         //13:01 ~ 13:15 ==> 13:15
         if (hour == 13 && (1 <= minutes && minutes <= 15)) {
             minutes = 15;
-        } else {
+        }
+        //12:25 ~ 12:59 ==> 13:00
+        else if (hour == 12 && (25 <= minutes && minutes <= 59)) {
+            hour = 13;
+            minutes = 0;
+        }
+        else {
             var newMinute;
             //To 15
             if (8 <= minutes && minutes < 23) {
@@ -77,6 +82,7 @@ function checkStudent(barNum, num) { // add boolean as param for checking in or 
             minutes = newMinute;
         }
     }
+    //Done changing hours and minutes
 
     if (minutes <= 9) {
         currentTime = hour + ":0" + minutes;
@@ -320,3 +326,9 @@ function scanBarcode(num) {
 // document.getElementById("btn").addEventListener("click", function () {
 
 // }, false);
+
+
+//startScanner
+//checkStudent
+//locatestudent
+//settime
